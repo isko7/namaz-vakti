@@ -1,0 +1,4 @@
+sudo systemctl enable myscript.service
+sudo systemctl stop myscript.service
+sudo systemctl start myscript.service
+systemctl status ezan
