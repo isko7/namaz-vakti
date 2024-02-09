@@ -7,10 +7,10 @@ import pygame
 import logging
 
 
-# logging.basicConfig(level=logging.INFO, format='%(message)s')
-# logger = logging.getLogger()
-# logger.addHandler(logging.FileHandler('/home/ismail/namaz-vakti/ezan_logs.log', 'a'))
-# print = logger.info
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+logger = logging.getLogger()
+logger.addHandler(logging.FileHandler('/home/ismail/namaz-vakti/ezan_logs.log', 'a'))
+print = logger.info
 
 
 def fetch_data():
@@ -28,6 +28,7 @@ def fetch_data():
         response = requests.get('https://namaz-vakti.vercel.app/api/timesFromPlace', params=params)
         return response.json()
     except Exception as e:
+        print("Error fetching data: %s", e)
         current_date = datetime.now().strftime('%Y-%m-%d')
         data['times'][current_date] = ["6:33", "13:13", "15:37", "18:04", "19:32"]
         return data
@@ -38,6 +39,7 @@ def fetch_data_nv():
         data = response.json()
         return data["pageProps"]["data"]["PrayerTimes"]
     except Exception as e:
+        print("Error fetching nv data: %s", e)
         data["pageProps"]["data"]["PrayerTimes"] = [{'date': '2024-01-30', 'imsak': '06:39', 'yatsi': '19:25', 'ogle': '13:13', 'gunes': '08:19', 'aksam': '17:56', 'ikindi': '15:30', 'hDate': '1445-07-19'}, {'date': '2024-01-31', 'imsak': '06:38', 'yatsi': '19:26', 'ogle': '13:13', 'gunes': '08:18', 'aksam': '17:58', 'ikindi': '15:32', 'hDate': 
             '1445-07-20'}, {'date': '2024-02-01', 'imsak': '06:36', 'yatsi': '19:28', 'ogle': '13:13', 'gunes': '08:17', 'aksam': '17:59', 'ikindi': '15:33', 'hDate': '1445-07-21'}, {'date': '2024-02-02', 'imsak': '06:35', 'yatsi': '19:29', 'ogle': '13:13', 'gunes': '08:15', 'aksam': '18:01', 'ikindi': '15:34', 'hDate': '1445-07-22'}, {'date': '2024-02-03', 'imsak': '06:34', 'yatsi': '19:30', 'ogle': '13:13', 'gunes': '08:14', 'aksam': '18:03', 'ikindi': '15:36', 'hDate': '1445-07-23'}, {'date': '2024-02-04', 'imsak': '06:33', 'yatsi': '19:32', 'ogle': '13:13', 'gunes': '08:13', 'aksam': '18:04', 'ikindi': '15:37', 'hDate': '1445-07-24'}, {'date': '2024-02-05', 'hDate': '1445-07-25', 'imsak': '06:32', 'gunes': '08:11', 'ogle': '13:14', 'ikindi': '15:38', 'aksam': '18:06', 'yatsi': '19:33'}, {'date': '2024-02-06', 'hDate': '1445-07-26', 'imsak': '06:31', 'gunes': '08:10', 'ogle': '13:14', 'ikindi': '15:39', 'aksam': '18:07', 'yatsi': '19:35'}, {'date': '2024-02-07', 'hDate': '1445-07-27', 'imsak': '06:29', 'gunes': '08:08', 'ogle': '13:14', 'ikindi': '15:41', 'aksam': '18:09', 'yatsi': '19:36'}, {'date': '2024-02-08', 'hDate': '1445-07-28', 'imsak': '06:28', 'gunes': '08:07', 'ogle': '13:14', 'ikindi': '15:42', 'aksam': '18:11', 'yatsi': '19:37'}, {'date': '2024-02-09', 'hDate': '1445-07-29', 'imsak': '06:27', 'gunes': '08:05', 'ogle': '13:14', 'ikindi': '15:43', 'aksam': '18:12', 'yatsi': '19:39'}, {'date': '2024-02-10', 'hDate': '1445-07-30', 'imsak': '06:25', 'gunes': '08:04', 'ogle': 
             '13:14', 'ikindi': '15:45', 'aksam': '18:14', 'yatsi': '19:40'}, {'date': '2024-02-11', 'hDate': '1445-08-01', 'imsak': '06:24', 'gunes': '08:02', 'ogle': '13:14', 'ikindi': '15:46', 'aksam': '18:15', 'yatsi': '19:42'}, {'date': '2024-02-12', 'hDate': '1445-08-02', 'imsak': '06:23', 'gunes': '08:01', 'ogle': '13:14', 'ikindi': '15:47', 'aksam': '18:17', 'yatsi': '19:43'}, {'date': '2024-02-13', 'hDate': '1445-08-03', 'imsak': '06:21', 'gunes': '07:59', 'ogle': '13:14', 'ikindi': '15:48', 'aksam': '18:19', 'yatsi': '19:45'}, {'date': '2024-02-14', 'hDate': '1445-08-04', 'imsak': '06:20', 'gunes': '07:57', 'ogle': '13:14', 'ikindi': '15:50', 'aksam': '18:20', 'yatsi': '19:46'}, {'date': '2024-02-15', 'hDate': '1445-08-05', 'imsak': '06:18', 'gunes': '07:56', 'ogle': '13:14', 'ikindi': '15:51', 'aksam': '18:22', 'yatsi': '19:47'}, {'date': '2024-02-16', 'hDate': '1445-08-06', 'imsak': '06:17', 'gunes': '07:54', 'ogle': '13:14', 'ikindi': '15:52', 'aksam': '18:23', 'yatsi': '19:49'}, {'date': '2024-02-17', 'hDate': '1445-08-07', 'imsak': '06:15', 'gunes': '07:52', 'ogle': '13:14', 'ikindi': '15:53', 'aksam': '18:25', 'yatsi': '19:50'}, {'date': '2024-02-18', 'hDate': '1445-08-08', 'imsak': '06:13', 'gunes': '07:51', 'ogle': '13:14', 'ikindi': '15:55', 'aksam': '18:27', 'yatsi': '19:52'}, {'date': '2024-02-19', 'hDate': '1445-08-09', 'imsak': '06:12', 'gunes': '07:49', 'ogle': '13:14', 'ikindi': '15:56', 'aksam': '18:28', 'yatsi': '19:53'}, {'date': '2024-02-20', 'hDate': '1445-08-10', 'imsak': '06:10', 'gunes': '07:47', 'ogle': '13:13', 'ikindi': '15:57', 'aksam': '18:30', 'yatsi': '19:55'}, {'date': '2024-02-21', 'hDate': '1445-08-11', 'imsak': '06:09', 'gunes': '07:45', 'ogle': '13:13', 'ikindi': '15:58', 'aksam': '18:31', 'yatsi': '19:56'}, {'date': '2024-02-22', 'hDate': '1445-08-12', 'imsak': '06:07', 'gunes': '07:44', 'ogle': '13:13', 'ikindi': '15:59', 'aksam': '18:33', 'yatsi': '19:58'}, {'date': '2024-02-23', 'hDate': '1445-08-13', 'imsak': '06:05', 'gunes': '07:42', 'ogle': '13:13', 'ikindi': '16:01', 'aksam': '18:35', 'yatsi': '19:59'}, {'date': '2024-02-24', 'hDate': '1445-08-14', 'imsak': '06:03', 'gunes': '07:40', 'ogle': '13:13', 'ikindi': '16:02', 'aksam': '18:36', 'yatsi': '20:01'}, {'date': '2024-02-25', 'hDate': '1445-08-15', 'imsak': '06:02', 'gunes': '07:38', 'ogle': '13:13', 'ikindi': '16:03', 'aksam': '18:38', 'yatsi': '20:02'}, {'date': '2024-02-26', 'hDate': '1445-08-16', 'imsak': '06:00', 'gunes': '07:36', 'ogle': '13:13', 'ikindi': '16:04', 'aksam': '18:39', 'yatsi': '20:04'}, {'date': '2024-02-27', 'hDate': '1445-08-17', 'imsak': '05:58', 'gunes': '07:34', 'ogle': '13:13', 'ikindi': '16:05', 'aksam': '18:41', 'yatsi': '20:05'}, 
@@ -73,7 +75,7 @@ def play_mp3(file_path):
 
     # Wait until the ezan has finished playing
     while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(60000)
+        pygame.time.Clock().tick(10000)
 
 
 def ezan(is_nv: bool = False):
