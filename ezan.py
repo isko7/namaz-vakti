@@ -142,7 +142,16 @@ def ezan(is_nv: bool = False):
                         print("%s - Playing bird sound: %s", current_time, random_file)
                         play_mp3(f"/home/ismail/namaz-vakti/bird/{random_file}")
 
-                    elif current_time in [today_object['ogle'], today_object['ikindi'], today_object['aksam'], today_object['yatsi']]:
+                    elif current_time == today_object['aksam']:
+                        folder_path = '/home/ismail/namaz-vakti/aksam/'
+                        files_in_folder = get_files_from_folder(folder_path)
+
+                        # Play a randomly selected audio file
+                        random_file = random.choice(files_in_folder)
+                        print("%s - Playing Aksam Ezan: %s", current_time, random_file)
+                        play_mp3(f"/home/ismail/namaz-vakti/aksam/{random_file}")
+
+                    elif current_time in [today_object['ogle'], today_object['ikindi'], today_object['yatsi']]:
                         folder_path = '/home/ismail/namaz-vakti/ezan/'
                         files_in_folder = get_files_from_folder(folder_path)
 
