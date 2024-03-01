@@ -116,13 +116,12 @@ def choose_play_ezan_file(folder_path, index, vakit):
     # Create play_order list from files_in_folder
     play_order = [os.path.join(folder_path, file_name) for file_name in files_in_folder]
 
-    if index >= len(play_order):
-        index = 0
-
     file_name = play_order[index]
     file_path = os.path.join(folder_path, file_name)
-    print("%s - Playing %s Ezan: %s", datetime.now(), vakit, file_name)
+    print("%s - Playing %s Ezan: %s - index: %s", datetime.now(), vakit, file_name, index)
     play_mp3(file_path)
+
+    return len(play_order)
 
 
 def alert_time(time, minutes):
@@ -161,8 +160,10 @@ def ezan():
             # Check if the current time is within the schedule for the current date
             if current_time == data['fajr']:
                 folder_path = '/home/ismail/namaz-vakti/sabah/'
-                choose_play_ezan_file(folder_path, imsak_index, 'Imsak')
+                imsak_ezan = choose_play_ezan_file(folder_path, imsak_index, 'Imsak')
                 imsak_index = imsak_index + 1
+                if imsak_index >= imsak_ezan:
+                    imsak_index = 0
 
             elif current_time == data['sunrise']:
                 folder_path = '/home/ismail/namaz-vakti/bird/'
@@ -177,23 +178,31 @@ def ezan():
 
             elif current_time == data['maghrib']:
                 folder_path = '/home/ismail/namaz-vakti/aksam/'
-                choose_play_ezan_file(folder_path, aksam_index, 'Aksam')
+                aksam_ezan = choose_play_ezan_file(folder_path, aksam_index, 'Aksam')
                 aksam_index = aksam_index + 1
+                if aksam_index >= aksam_ezan:
+                    aksam_index = 0
 
             elif current_time == data['dhuhr']:
                 folder_path = '/home/ismail/namaz-vakti/ezan/'
-                choose_play_ezan_file(folder_path, ezan_index, 'Ogle')
+                ogle_ezan = choose_play_ezan_file(folder_path, ezan_index, 'Ogle')
                 ezan_index = ezan_index + 1
+                if ezan_index >= ogle_ezan:
+                    ezan_index = 0
 
             elif current_time == data['asr']:
                 folder_path = '/home/ismail/namaz-vakti/ezan/'
-                choose_play_ezan_file(folder_path, ezan_index, 'Ikindi')
+                ikindi_ezan = choose_play_ezan_file(folder_path, ezan_index, 'Ikindi')
                 ezan_index = ezan_index + 1
+                if ezan_index >= ikindi_ezan:
+                    ezan_index = 0
 
             elif current_time == data['isha']:
                 folder_path = '/home/ismail/namaz-vakti/ezan/'
-                choose_play_ezan_file(folder_path, ezan_index, 'Yatsi')
+                yatsi_ezan = choose_play_ezan_file(folder_path, ezan_index, 'Yatsi')
                 ezan_index = ezan_index + 1
+                if ezan_index >= yatsi_ezan:
+                    ezan_index = 0
 
             elif current_time == fajr_10 or current_time == dhuhr_10 or current_time == asr_10 or current_time == maghrib_10 or current_time == isha_10:
                 folder_path = '/home/ismail/namaz-vakti/alert10/'
