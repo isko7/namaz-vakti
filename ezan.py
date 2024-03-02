@@ -99,11 +99,9 @@ def get_files_from_folder(folder_path):
         return []
 
 
-def play_mp3(file_path, lower_volume=False):
+def play_mp3(file_path):
     pygame.mixer.init()
     pygame.mixer.music.load(file_path)
-    if lower_volume:
-        pygame.mixer.music.set_volume(0.5)
 
     pygame.mixer.music.play()
 
@@ -222,7 +220,7 @@ def ezan():
                 # Play a randomly selected audio file
                 random_file = random.choice(files_in_folder)
                 print("%s - Playing Alert 45min sound: %s", datetime.now(), random_file)
-                play_mp3(f"/home/ismail/namaz-vakti/alert45/{random_file}", True)
+                play_mp3(f"/home/ismail/namaz-vakti/alert45/{random_file}")
                 time.sleep(60)
 
 ezan()
